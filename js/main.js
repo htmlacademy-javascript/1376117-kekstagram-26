@@ -32,7 +32,6 @@ getRandomIntInclusive(1,5);
 // Функция для проверки максимальной длины строки
 // Источник https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/String/length
 
-const checkStringLength = (stringToCheck, maxLength) => 
- stringToCheck.length <= maxLength;
+const checkStringLength = (stringToCheck, maxLength) => stringToCheck.length <= maxLength;
 
 checkStringLength('Keks', 10);
