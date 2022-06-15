@@ -103,23 +103,20 @@ const commentBank = [
 
 const getRandomArrayElements = (elements) => elements[getRandomIntInclusive(0, elements.length - 1)];
 
-const createPhotoInfo = (id, description, comments) =>
-  {
-    id,
-    url: 'photos/' + id + '.jpg',
-    description,
-    likes: getRandomIntInclusive(15,200),
-    comments,
-  };
+const createPhotoInfo = (id, description, comments) => ({
+  id,
+  url: `photos/${id}.jpg`,
+  description,
+  likes: getRandomIntInclusive(15,200),
+  comments,
+});
 
-const makeComment = (id) => {
-  return {
-    id,
-    avatar: 'img/avatar-' + getRandomIntInclusive(1,6) + '.svg',
-    message: getRandomArrayElements(commentBank),
-    name: getRandomArrayElements(authorNames),
-  };
-};
+const makeComment = (id) => ({
+  id,
+  avatar: `img/avatar-${getRandomIntInclusive(1,6)}.svg`,
+  message: getRandomArrayElements(commentBank),
+  name: getRandomArrayElements(authorNames),
+});
 
 const makePhotos = (count) => {
   const photos = [];
@@ -127,13 +124,9 @@ const makePhotos = (count) => {
     const messages = [];
     messages.push(makeComment(i + 1), makeComment(i + 2));
     photos.push(createPhotoInfo((i + 1), descriptions[i], messages));
-  };
+  }
   return photos;
 };
+
 const maxPhotoCount = 25;
 makePhotos(maxPhotoCount);
-
-const similarPhotoInfo = Array.from({length: 25}, createPhotoInfo);
-
-console.log(similarPhotoInfo);
-
