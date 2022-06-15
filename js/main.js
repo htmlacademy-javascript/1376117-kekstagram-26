@@ -36,7 +36,7 @@ const checkStringLength = (stringToCheck, maxLength) => stringToCheck.length <= 
 
 checkStringLength('Keks', 10);
 
-const descriptions = [
+const DESCRIPTIONS = [
   'Отель около моря',
   'Отличный указатель',
   'Море',
@@ -64,7 +64,7 @@ const descriptions = [
   'Внедорожник',
 ];
 
-const authorNames = [
+const AUTHOR_NAMES = [
   'Павел',
   'Вова',
   'Катя',
@@ -92,7 +92,7 @@ const authorNames = [
   'Даша',
 ];
 
-const commentBank = [
+const COMMENTS_BANK = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -114,19 +114,22 @@ const createPhotoInfo = (id, description, comments) => ({
 const makeComment = (id) => ({
   id,
   avatar: `img/avatar-${getRandomIntInclusive(1,6)}.svg`,
-  message: getRandomArrayElements(commentBank),
-  name: getRandomArrayElements(authorNames),
+  message: getRandomArrayElements(COMMENTS_BANK),
+  name: getRandomArrayElements(AUTHOR_NAMES),
 });
 
 const makePhotos = (count) => {
   const photos = [];
   for (let i = 0; i <= count - 1; i++) {
     const messages = [];
-    messages.push(makeComment(i + 1), makeComment(i + 2));
-    photos.push(createPhotoInfo((i + 1), descriptions[i], messages));
+    for (let j = 1; j <= getRandomIntInclusive(1, 10); j++) {
+      messages.push(makeComment(j));
+    }
+    photos.push(createPhotoInfo((i + 1), DESCRIPTIONS[i], messages));
   }
   return photos;
 };
 
-const maxPhotoCount = 25;
-makePhotos(maxPhotoCount);
+
+const MAX_PHOTO_COUNT = 25;
+makePhotos(MAX_PHOTO_COUNT);
