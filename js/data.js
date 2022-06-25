@@ -1,4 +1,4 @@
-import { getRandomIntInclusive } from './util';
+import { getRandomIntInclusive } from './util.js';
 
 const DESCRIPTIONS = [
   'Отель около моря',
