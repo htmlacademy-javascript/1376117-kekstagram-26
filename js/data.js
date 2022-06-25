@@ -67,8 +67,6 @@ const COMMENTS_BANK = [
 
 const getRandomArrayElements = (elements) => elements[getRandomIntInclusive(0, elements.length - 1)];
 
-
-
 const createPhotoInfo = (id, description, comments) => ({
   id,
   url: `photos/${id}.jpg`,
