@@ -1,4 +1,4 @@
-import { getRandomIntInclusive } from './util';
+import { getRandomIntInclusive } from './util.js';
 
 const DESCRIPTIONS = [
   'Отель около моря',
@@ -66,6 +66,8 @@ const COMMENTS_BANK = [
 ];
 
 const getRandomArrayElements = (elements) => elements[getRandomIntInclusive(0, elements.length - 1)];
+
+
 
 const createPhotoInfo = (id, description, comments) => ({
   id,
