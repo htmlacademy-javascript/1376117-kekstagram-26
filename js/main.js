@@ -1,2 +1,2 @@
 import './miniature.js';
-// import './full-size-img.js';
+import './full-size-img.js';
