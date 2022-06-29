@@ -50,6 +50,7 @@ const openBigPhoto = (photo) => {
     fragmentItem.append(socialComment);
     commentsList.append(fragmentItem);
   });
+
   commentCountElement.classList.add('hidden');
   commentsLoaderElement.classList.add('hidden');
   bodyElement.classList.add('modal-open');
