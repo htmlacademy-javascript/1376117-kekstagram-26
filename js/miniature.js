@@ -1,7 +1,5 @@
 import {makePhotos} from './data.js';
 import {openBigPhoto} from './full-size-img.js';
-// import { bigPicture } from './full-size-img.js';
-// import { previewPicture } from './full-size-img.js';
 
 const pictureItem = document.body.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');

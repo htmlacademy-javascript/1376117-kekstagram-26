@@ -1,6 +1,4 @@
 import {escapeKey, makeElement} from './util.js';
-// import {escapeKey1} from './util.js';
-
 
 const bigPicture = document.body.querySelector('.big-picture');
 const previewPicture = bigPicture.querySelector('.big-picture__img img');
@@ -14,22 +12,21 @@ const commentsLoaderElement = bigPicture.querySelector('.comments-loader');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const bodyElement = document.querySelector('body');
 
-// closeButton.addEventListener('click', () => {
-//   bigPicture.classList.add('hidden');
-//   bodyElement.classList.remove('modal-open');
-// });
+const onClosePhoto = () => {
+  closePhoto();
+};
 
-const closePhotoEscape = (evt) => {
-  if (evt.key === 'Escape') {
-    bigPicture.classList.add('hidden');
+const onClosePhotoEscape = (evt) => {
+  if (escapeKey(evt)) {
+    closePhoto();
   }
 };
 
-function removeEvent () {
-  closeButton.removeEventListener('click', () => {
-    bigPicture.classList.remove('hidden');
-    bodyElement.classList.add('modal-open');
-  });
+function closePhoto () {
+  bigPicture.classList.add('hidden');
+  bodyElement.classList.remove('modal-open');
+  closeButton.removeEventListener('click', onClosePhoto);
+  window.removeEventListener('keydown', onClosePhotoEscape);
 }
 
 const openBigPhoto = (photo) => {
@@ -56,23 +53,8 @@ const openBigPhoto = (photo) => {
   commentCountElement.classList.add('hidden');
   commentsLoaderElement.classList.add('hidden');
   bodyElement.classList.add('modal-open');
-  closeButton.addEventListener('click', () => {
-    bigPicture.classList.add('hidden');
-    bodyElement.classList.remove('modal-open');
-    removeEvent();
-  });
+  window.addEventListener('keydown', onClosePhotoEscape);
+  closeButton.addEventListener('click', onClosePhoto);
 };
 
-
-// const closePictureEscape = (evt) => {
-//   if (escapeKey(evt)) {
-//     bigPicture.classList.add('hidden');
-//   }
-// };
-
-// document.addEventListener('keydown', (evt) => {
-//   escapeKey1(evt, bigPicture);
-// });
-
-export {bigPicture, commentCountElement, commentsLoaderElement, bodyElement,
-  previewPicture, likesCount, commentsCount, descriptionPicture, commentsList, fragmentItem, openBigPhoto};
+export {openBigPhoto};
