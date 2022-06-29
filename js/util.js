@@ -34,4 +34,17 @@ const checkStringLength = (stringToCheck, maxLength) => stringToCheck.length <= 
 
 checkStringLength('Keks', 10);
 
-export {getRandomIntInclusive};
+// Функция для создания элементов
+
+const makeElement = (tagName, className) => {
+  const element = document.createElement(tagName);
+  element.classList.add(className);
+  return element;
+};
+
+//Функция для закрытия окна по нажатию клавиши Esc
+
+const escapeKey = (evt) => evt.key === 'Escape';
+
+export {getRandomIntInclusive, makeElement, escapeKey};
+
