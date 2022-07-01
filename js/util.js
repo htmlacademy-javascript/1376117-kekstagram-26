@@ -44,7 +44,7 @@ const makeElement = (tagName, className) => {
 
 //Функция для закрытия окна по нажатию клавиши Esc
 
-const escapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomIntInclusive, makeElement, escapeKey};
+export {getRandomIntInclusive, makeElement, isEscapeKey};
 
