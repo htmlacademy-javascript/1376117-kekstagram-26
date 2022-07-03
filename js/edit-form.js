@@ -5,6 +5,7 @@ import './form-validation.js';
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
+const textHashtags = document.querySelector('.text__hashtags');
 
 const onCloseImgEdit = () => {
   closeImgEdit();
