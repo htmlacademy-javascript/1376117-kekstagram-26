@@ -32,7 +32,7 @@ const makeHashtagsToLowCase = (hashTagsString) => hashTagsString.toLowerCase();
 const pristine = new Pristine(form, {
   classTo: 'img-upload__field-wrapper',
   errorTextParent: 'img-upload__field-wrapper',
-  // errorTextClass: 'img-upload__error-text',
+  errorTextClass: 'img-upload__error-text',
 });
 
 pristine.addValidator(textDescription, validateCommentLength, `Максимальная длина ${MAX_DESCRIPTION_STRING} символов`);
