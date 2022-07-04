@@ -29,30 +29,48 @@ function closePhoto () {
   window.removeEventListener('keydown', onClosePhotoEscape);
 }
 
+const makePhotoComments = (comment) => {
+  const socialComment = makeElement('li', 'social__comment');
+  const image = makeElement('img', 'social__picture');
+  const socialText = makeElement('p', 'social__text');
+  image.src = comment.avatar;
+  image.alt = comment.name;
+  image.width = '35';
+  image.height = '35';
+  socialText.textContent = comment.message;
+  socialComment.append(image);
+  socialComment.append(socialText);
+
+  return socialComment;
+};
+
 const openBigPhoto = (photo) => {
   bigPicture.classList.remove('hidden');
   previewPicture.src = photo.url;
   descriptionPicture.textContent = photo.description;
   likesCount.textContent = photo.likes;
   commentsCount.textContent = photo.comments;
+  makePhotoComments(photo.comments);
 
-  photo.comments.forEach((comment) => {
-    const socialComment = makeElement('li', 'social__comment');
-    const image = makeElement('img', 'social__picture');
-    const socialText = makeElement('p', 'social__text');
-    image.src = comment.avatar;
-    image.alt = comment.name;
-    image.width = '35';
-    image.height = '35';
-    socialText.textContent = comment.message;
-    socialComment.append(image);
-    socialComment.append(socialText);
-    fragmentItem.append(socialComment);
-    commentsList.append(fragmentItem);
-  });
+  // photo.comments.forEach((comment) => {
+  //   const socialComment = makeElement('li', 'social__comment');
+  //   const image = makeElement('img', 'social__picture');
+  //   const socialText = makeElement('p', 'social__text');
+  //   image.src = comment.avatar;
+  //   image.alt = comment.name;
+  //   image.width = '35';
+  //   image.height = '35';
+  //   socialText.textContent = comment.message;
+  //   socialComment.append(image);
+  //   socialComment.append(socialText);
+  //   fragmentItem.append(socialComment);
+  //   commentsList.append(fragmentItem);
+  // });
+  // fragmentItem.append(socialComment);
+  commentsList.append(fragmentItem);
 
-  commentCountElement.classList.add('hidden');
-  commentsLoaderElement.classList.add('hidden');
+  // commentCountElement.classList.add('hidden');
+  // commentsLoaderElement.classList.add('hidden');
   bodyElement.classList.add('modal-open');
   window.addEventListener('keydown', onClosePhotoEscape);
   closeButton.addEventListener('click', onClosePhoto);
