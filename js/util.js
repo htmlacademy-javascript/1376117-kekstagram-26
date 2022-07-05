@@ -1,6 +1,6 @@
 // Функция, возвращающая случайное целое число.
 // Источник https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-
+const buttonEscape = 'Escape';
 const getRandomIntInclusive = (min, max) => {
   if (min >= 0 && max >= 0) {
     if( min < max) {
@@ -44,7 +44,7 @@ const makeElement = (tagName, className) => {
 
 //Функция для закрытия окна по нажатию клавиши Esc
 
-const escapeKey = (evt) => evt.key === 'Escape';
+const isEscapeKey = (evt) => evt.key === buttonEscape;
 
-export {getRandomIntInclusive, makeElement, escapeKey};
+export {getRandomIntInclusive, makeElement, isEscapeKey};
 

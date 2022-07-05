@@ -23,5 +23,3 @@ similarPictures.forEach((photo) => {
 });
 
 pictureItem.appendChild(similarListFragment);
-
-export {};

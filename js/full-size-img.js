@@ -1,4 +1,4 @@
-import {escapeKey, makeElement} from './util.js';
+import {isEscapeKey, makeElement} from './util.js';
 
 const bigPicture = document.body.querySelector('.big-picture');
 const previewPicture = bigPicture.querySelector('.big-picture__img img');
@@ -17,7 +17,7 @@ const onClosePhoto = () => {
 };
 
 const onClosePhotoEscape = (evt) => {
-  if (escapeKey(evt)) {
+  if (isEscapeKey(evt)) {
     closePhoto();
   }
 };
