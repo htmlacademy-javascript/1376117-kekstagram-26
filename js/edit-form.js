@@ -1,4 +1,3 @@
-import {bodyElement} from './full-size-img.js';
 import {isEscapeKey} from './util.js';
 import './form-validation.js';
 
@@ -6,11 +5,13 @@ const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
 const textHashtags = document.querySelector('.text__hashtags');
+const textDescription = document.querySelector('.text__description');
 const form = document.querySelector('.img-upload__form');
+const bodyElement = document.querySelector('body');
 
 const onCloseImgEdit = () => {
   closeImgEdit();
-  form.requestFullscreen();
+  form.reset();
 };
 
 const onCloseImgEditEscape = (evt) => {
@@ -19,7 +20,7 @@ const onCloseImgEditEscape = (evt) => {
   }
 };
 
-const stopPropagationEsc = (evt) => {
+const onStopPropagationEsc = (evt) => {
   if (isEscapeKey(evt)) {
     evt.stopPropagation();
   }
@@ -30,7 +31,8 @@ function closeImgEdit () {
   bodyElement.classList.remove('modal-open');
   imgUploadCancel.removeEventListener('change', onCloseImgEdit);
   window.removeEventListener('keydown', onCloseImgEditEscape);
-  textHashtags.removeEventListener('keydown', stopPropagationEsc);
+  textHashtags.removeEventListener('keydown', onStopPropagationEsc);
+  textDescription.removeEventListener('keydown', onStopPropagationEsc);
 }
 
 const openImgEdit = () => {
@@ -39,7 +41,8 @@ const openImgEdit = () => {
     bodyElement.classList.add('modal-open');
     window.addEventListener('keydown', onCloseImgEditEscape);
     imgUploadCancel.addEventListener('click', onCloseImgEdit);
-    textHashtags.addEventListener('keydown', stopPropagationEsc);
+    textHashtags.addEventListener('keydown', onStopPropagationEsc);
+    textDescription.addEventListener('keydown', onStopPropagationEsc);
   });
 };
 

@@ -76,4 +76,4 @@ const openBigPhoto = (photo) => {
   closeButton.addEventListener('click', onClosePhoto);
 };
 
-export {openBigPhoto, bodyElement};
+export {openBigPhoto};
