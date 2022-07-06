@@ -1,7 +1,7 @@
 const form = document.querySelector('.img-upload__form');
 const textDescription = document.querySelector('.text__description');
 const textHashtags = document.querySelector('.text__hashtags');
-const regExp = /#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
+const regExp = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
 
 const MAX_DESCRIPTION_STRING = 140;
 const MAX_COUNT_HASHTAGS = 5;
@@ -20,16 +20,15 @@ const validateHashTagsFormat = (hashTagsString) => {
   if (hashTagsString === '') {
     return true;
   } else {
-    const listOfUniqueHashTags = hashTagsString.split(' ');
-    let i = 0;
-    let isHashTagValid = true;
-    while (isHashTagValid && i < listOfUniqueHashTags.length) {
-      listOfUniqueHashTags.forEach((hashtag) => {
-        isHashTagValid = regExp.test(hashtag);
-        i++;
-      });
+    const hashtags = hashTagsString.split(' ');
+    let isValid = true;
+    for (const hashtag of hashtags ) {
+      isValid = regExp.test(hashtag);
+      if (!isValid) {
+        break;
+      }
     }
-    return isHashTagValid;
+    return isValid;
   }
 };
 
