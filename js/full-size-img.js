@@ -1,4 +1,4 @@
-import {isEscapeKey, makeElement} from './util.js';
+import { isEscapeKey, makeElement } from './util.js';
 
 const bigPicture = document.body.querySelector('.big-picture');
 const previewPicture = bigPicture.querySelector('.big-picture__img img');
@@ -14,6 +14,7 @@ const bodyElement = document.querySelector('body');
 const notesOnPage = 5;
 let page = 0;
 let startIndex = 0;
+let photoComments;
 
 const onClosePhotoEscape = (evt) => {
   if (isEscapeKey(evt)) {
@@ -37,18 +38,24 @@ const generateComment = (comment) => {
   socialComment.append(image);
   socialComment.append(socialText);
   fragmentItem.append(socialComment);
-  commentsList.append(fragmentItem);
 };
 
 const addComments = (comments) => {
   comments.forEach(generateComment);
+  commentsList.append(fragmentItem);
 };
 
-const onLoadMore = (commentsLength) =>  {
+const makeCommentAmountInfo = (shownComments, totalAmountComments) => `${shownComments} из ${totalAmountComments} комментариев`;
+
+
+const onLoadMore = () => {
   startIndex = page * notesOnPage;
   const endIndex = page * notesOnPage + notesOnPage;
-  addComments(commentsLength.slice(startIndex,  endIndex ));
-  if (endIndex >= commentsLength.length) {
+  commentCountElement.textContent = makeCommentAmountInfo(endIndex, photoComments.length);
+
+  addComments(photoComments.slice(startIndex, endIndex));
+  if (endIndex >= photoComments.length) {
+    commentCountElement.textContent = makeCommentAmountInfo(photoComments.length, photoComments.length);
     commentsLoaderElement.classList.add('hidden');
   }
   page++;
@@ -57,21 +64,22 @@ const onLoadMore = (commentsLength) =>  {
 const openBigPhoto = (photo) => {
   commentsList.innerHTML = '';
   page = 0;
+  photoComments = photo.comments;
   bigPicture.classList.remove('hidden');
   previewPicture.src = photo.url;
   descriptionPicture.textContent = photo.description;
   likesCount.textContent = photo.likes;
   const commentsLength = photo.comments.length;
-  commentsCount.textContent = commentsLength ;
+  commentsCount.textContent = commentsLength;
 
   if (commentsLength <= notesOnPage) {
     commentsLoaderElement.classList.add('hidden');
-    commentCountElement.textContent = `${commentsLength} из ${commentsLength} комментариев`;
+    commentCountElement.textContent = makeCommentAmountInfo(commentsLength, commentsLength);
 
   } else {
-    commentCountElement.textContent = `${notesOnPage} из ${commentsLength} комментариев`;
+    commentCountElement.textContent = makeCommentAmountInfo(notesOnPage, commentsLength);
     commentsLoaderElement.classList.remove('hidden');
-    commentsLoaderElement.addEventListener('click', () => onLoadMore(photo.comments));
+    commentsLoaderElement.addEventListener('click', onLoadMore);
   }
 
   onLoadMore(photo.comments);
@@ -81,12 +89,13 @@ const openBigPhoto = (photo) => {
   closeButton.addEventListener('click', onClosePhoto);
 };
 
-function closePhoto () {
+function closePhoto() {
   bigPicture.classList.add('hidden');
   bodyElement.classList.remove('modal-open');
   closeButton.removeEventListener('click', onClosePhoto);
   window.removeEventListener('keydown', onClosePhotoEscape);
   commentsLoaderElement.removeEventListener('click', onLoadMore);
+
 }
 
-export {openBigPhoto};
+export { openBigPhoto };
