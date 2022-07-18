@@ -85,10 +85,11 @@ const EFFECTS = {
 const sliderElement = document.querySelector('.effect-level__slider');
 const imgUploadPreview = document.querySelector('.img-upload__preview img');
 const effectLevelValue = document.querySelector('.effect-level__value');
-const form = document.querySelector('#upload-select-image');
-const filterInputs = document.querySelectorAll('input [type = "radio"]');
+// const form = document.querySelector('#upload-select-image');
+// const filterInputs = document.querySelectorAll('input [type = "radio"]');
 const effectsList = document.querySelector('.effects__list');
 // const filterInputs = document.querySelectorAll('.effects__item');
+const effectLevel =document.querySelector('.img-upload__effect-level');
 let selectedEffect;
 
 noUiSlider.create(sliderElement, {
@@ -103,17 +104,38 @@ noUiSlider.create(sliderElement, {
 
 sliderElement.noUiSlider.on('update', () => {
   effectLevelValue.value = sliderElement.noUiSlider.get();
+  // console.log(effectLevelValue.value);
 });
+
+const updateEffects = (effect) => {
+  sliderElement.noUiSlider.updateOptions(effect.filter);
+};
 
 const onFilterChange = (evt) => {
   selectedEffect = evt.target.value;
   imgUploadPreview.className = '';
   imgUploadPreview.classList.add(`effects__preview--${selectedEffect}`);
-  console.log(selectedEffect);
+  // console.log(selectedEffect);
+  if (selectedEffect === NO_EFFECT) {
+    imgUploadPreview.style.filter = NO_EFFECT;
+    imgUploadPreview.className = '';
+    effectLevelValue.value = '';
+    effectLevel.classList.add('hidden');
+  } else {
+    effectLevel.classList.remove('hidden');
+    updateEffects(EFFECTS[selectedEffect]);
+    // console.log(updateEffects(EFFECTS[selectedEffect]));
+  }
 };
 
 effectsList.addEventListener('change', onFilterChange);
 
-sliderElement.addEventListener('change', () => {
-  if ()
-});
+// sliderElement.addEventListener('change', (evt) => {
+//   if (evt.target.checked) {
+//     sliderElement.noUiSlider.updateOptions({
+//       range: {min: 0, max: 3,},
+//       start: 3,
+//       step: 0.1,
+//     });
+//   }
+// });
