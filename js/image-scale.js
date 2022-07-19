@@ -5,7 +5,7 @@ const MAX_VALUE = 100;
 const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
-const imageUploadPreview = document.querySelector('.img-upload__preview');
+const imageUploadPreview = document.querySelector('.img-upload__preview img');
 let selectedValue;
 let currentValue = MAX_VALUE;
 
@@ -37,5 +37,4 @@ const onClickMinusButton = () => {
   }
 };
 
-scaleControlBigger.addEventListener('click', onclickPlusButton);
-scaleControlSmaller.addEventListener('click', onClickMinusButton);
+export {onclickPlusButton, onClickMinusButton, scaleControlBigger, scaleControlSmaller, scaleControlValue};
