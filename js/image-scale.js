@@ -6,35 +6,42 @@ const scaleControlSmaller = document.querySelector('.scale__control--smaller');
 const scaleControlBigger = document.querySelector('.scale__control--bigger');
 const scaleControlValue = document.querySelector('.scale__control--value');
 const imageUploadPreview = document.querySelector('.img-upload__preview img');
-let selectedValue;
-let currentValue = MAX_VALUE;
 
 const addImagePreview = (value) => {
   imageUploadPreview.style.transform = `scale(${ value / 100})`;
-  selectedValue = `${value}%`;
-  scaleControlValue.setAttribute('value', selectedValue);
 };
 
 const increaseScale = () => {
-  currentValue += SIZE_STEP;
-  addImagePreview(currentValue);
+  let currentValue = parseInt(scaleControlValue.value, 10);
+  if (currentValue < MAX_VALUE) {
+    currentValue += SIZE_STEP;
+  }
+  return currentValue;
 };
 
 const reduceScale = () => {
-  currentValue -= SIZE_STEP;
-  addImagePreview(currentValue);
+  let currentValue = parseInt(scaleControlValue.value, 10);
+  if (currentValue > MIN_VALUE) {
+    currentValue -= SIZE_STEP;
+  }
+  return currentValue;
 };
 
 const onclickPlusButton = () => {
-  if (currentValue < MAX_VALUE) {
-    increaseScale();
-  }
+  const currentValue = increaseScale();
+  scaleControlValue.value = `${currentValue}%`;
+  addImagePreview(currentValue);
 };
 
 const onClickMinusButton = () => {
-  if (currentValue > MIN_VALUE) {
-    reduceScale();
-  }
+  const currentValue = reduceScale();
+  scaleControlValue.value = `${currentValue}%`;
+  addImagePreview(currentValue);
 };
 
-export {onclickPlusButton, onClickMinusButton, scaleControlBigger, scaleControlSmaller, scaleControlValue};
+const resetScale = () => {
+  imageUploadPreview.style.transform = '';
+  scaleControlValue.value = `${MAX_VALUE}%`;
+};
+
+export {onclickPlusButton, onClickMinusButton, scaleControlBigger, scaleControlSmaller, scaleControlValue, resetScale};

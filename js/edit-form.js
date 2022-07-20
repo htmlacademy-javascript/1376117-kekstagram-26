@@ -1,7 +1,8 @@
 import {isEscapeKey} from './util.js';
 import './form-validation.js';
 import {setupEffects, destroyEffects} from './range.js';
-import {onclickPlusButton, onClickMinusButton, scaleControlBigger, scaleControlSmaller, scaleControlValue} from './image-scale.js';
+import {onclickPlusButton, onClickMinusButton, scaleControlBigger, scaleControlSmaller, resetScale} from './image-scale.js';
+import { pristine } from './form-validation.js';
 
 const FULL_SCALE_VALUE = 100;
 
@@ -12,11 +13,10 @@ const textHashtags = document.querySelector('.text__hashtags');
 const textDescription = document.querySelector('.text__description');
 const form = document.querySelector('.img-upload__form');
 const bodyElement = document.querySelector('body');
-const imageUploadPreview = document.querySelector('.img-upload__preview img');
+const scaleControl = document.querySelector('.scale__control--value');
 
 const onCloseImgEdit = () => {
   closeImgEdit();
-  form.reset();
 };
 
 const onCloseImgEditEscape = (evt) => {
@@ -41,9 +41,9 @@ function closeImgEdit () {
   destroyEffects();
   scaleControlBigger.removeEventListener('click', onclickPlusButton);
   scaleControlSmaller.removeEventListener('click', onClickMinusButton);
-  imageUploadPreview.style.transform = '';
-  imageUploadPreview.style.filter = 'none';
-  imageUploadPreview.className = 'none';
+  resetScale();
+  form.reset();
+  pristine.reset();
 }
 
 const openImgEdit = () => {
@@ -55,7 +55,7 @@ const openImgEdit = () => {
     textHashtags.addEventListener('keydown', onStopPropagationEsc);
     textDescription.addEventListener('keydown', onStopPropagationEsc);
     setupEffects();
-    scaleControlValue.defaultValue = `${FULL_SCALE_VALUE}%`;
+    scaleControl.defaultValue = `${FULL_SCALE_VALUE}%`;
     scaleControlBigger.addEventListener('click', onclickPlusButton);
     scaleControlSmaller.addEventListener('click', onClickMinusButton);
   });
