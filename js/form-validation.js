@@ -49,3 +49,5 @@ form.addEventListener('submit', (evt) => {
     form.submit();
   }
 });
+
+export {pristine};

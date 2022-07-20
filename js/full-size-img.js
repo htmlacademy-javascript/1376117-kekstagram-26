@@ -1,5 +1,7 @@
 import { isEscapeKey, makeElement } from './util.js';
 
+const NOTES_ON_PAGE = 5;
+
 const bigPicture = document.body.querySelector('.big-picture');
 const previewPicture = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -11,7 +13,6 @@ const commentCountElement = bigPicture.querySelector('.social__comment-count');
 const commentsLoaderElement = bigPicture.querySelector('.comments-loader');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 const bodyElement = document.querySelector('body');
-const notesOnPage = 5;
 let page = 0;
 let startIndex = 0;
 let photoComments;
@@ -49,8 +50,8 @@ const makeCommentAmountInfo = (shownComments, totalAmountComments) => `${shownCo
 
 
 const onLoadMore = () => {
-  startIndex = page * notesOnPage;
-  const endIndex = page * notesOnPage + notesOnPage;
+  startIndex = page * NOTES_ON_PAGE;
+  const endIndex = page * NOTES_ON_PAGE + NOTES_ON_PAGE;
   commentCountElement.textContent = makeCommentAmountInfo(endIndex, photoComments.length);
 
   addComments(photoComments.slice(startIndex, endIndex));
@@ -72,12 +73,12 @@ const openBigPhoto = (photo) => {
   const commentsLength = photo.comments.length;
   commentsCount.textContent = commentsLength;
 
-  if (commentsLength <= notesOnPage) {
+  if (commentsLength <= NOTES_ON_PAGE) {
     commentsLoaderElement.classList.add('hidden');
     commentCountElement.textContent = makeCommentAmountInfo(commentsLength, commentsLength);
 
   } else {
-    commentCountElement.textContent = makeCommentAmountInfo(notesOnPage, commentsLength);
+    commentCountElement.textContent = makeCommentAmountInfo(NOTES_ON_PAGE, commentsLength);
     commentsLoaderElement.classList.remove('hidden');
     commentsLoaderElement.addEventListener('click', onLoadMore);
   }
