@@ -7,7 +7,6 @@ import { pristine } from './form-validation.js';
 
 const FULL_SCALE_VALUE = 100;
 
-const errorMessage = document.querySelector('.error');
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
@@ -22,6 +21,7 @@ const onCloseImgEdit = () => {
 };
 
 const onCloseImgEditEscape = (evt) => {
+  const errorMessage = document.querySelector('.error');
   if (isEscapeKey(evt) && !errorMessage) {
     closeImgEdit();
   }

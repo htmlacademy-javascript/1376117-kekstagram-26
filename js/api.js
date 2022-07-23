@@ -1,5 +1,3 @@
-// import {renderSimilarPhoto} from './miniature.js';
-import { showMessage } from './messages.js';
 import { showAlert } from './util.js';
 
 const getData = (onSuccess) => {
@@ -19,7 +17,7 @@ const getData = (onSuccess) => {
     });
 };
 
-const sendData = (onSuccess, body) => {
+const sendData = (onSuccess, onFail, body) => {
   fetch('https://26.javascript.pages.academ/kekstagram',
     {
       method: 'POST',
@@ -29,12 +27,11 @@ const sendData = (onSuccess, body) => {
     .then((response) => {
       if (response.ok) {
         onSuccess();
-        showMessage('success');
+      } else {
+        onFail();
       }
     })
-    .catch(() => {
-      showMessage('error');
-    });
+    .catch(() => onFail());
 };
 
 export{getData, sendData};

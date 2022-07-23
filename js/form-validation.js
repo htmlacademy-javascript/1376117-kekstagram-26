@@ -1,15 +1,18 @@
-// import { showMessage } from './messages.js';
-// import {showAlert} from './util.js';
+import { showMessage } from './messages.js';
 import { sendData } from './api.js';
+
+const MAX_DESCRIPTION_STRING = 140;
+const MAX_COUNT_HASHTAGS = 5;
+const NO_EFFECT = 'none';
+const SUCCESS_MESSAGE= 'success';
+const ERROR_MESSAGE = 'error';
 
 const submitButton = document.querySelector('.img-upload__submit');
 const form = document.querySelector('.img-upload__form');
 const textDescription = document.querySelector('.text__description');
 const textHashtags = document.querySelector('.text__hashtags');
 const regExp = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
-
-const MAX_DESCRIPTION_STRING = 140;
-const MAX_COUNT_HASHTAGS = 5;
+const imgUploadPreview = document.querySelector('.img-upload__preview img');
 
 const validateCommentLength = (value) => value.length <= MAX_DESCRIPTION_STRING;
 
@@ -64,7 +67,13 @@ const setPictureFormSubmit = (onSuccess) => {
       blockSubmitButton();
       sendData(
         () => {
-          onSuccess();
+          onSuccess(showMessage(SUCCESS_MESSAGE));
+          unblockSubmitButton();
+          form.reset();
+          imgUploadPreview.style.filter = NO_EFFECT;
+        },
+        () => {
+          showMessage(ERROR_MESSAGE);
           unblockSubmitButton();
         },
         new FormData(evt.target),
