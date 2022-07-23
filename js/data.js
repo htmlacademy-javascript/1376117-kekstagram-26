@@ -94,4 +94,4 @@ const makePhotos = (count) => {
   return photos;
 };
 
-export {makePhotos};
+// export {makePhotos};
