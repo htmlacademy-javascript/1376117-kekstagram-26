@@ -3,9 +3,11 @@ import './form-validation.js';
 import {setupEffects, destroyEffects} from './range.js';
 import {onclickPlusButton, onClickMinusButton, scaleControlBigger, scaleControlSmaller, resetScale} from './image-scale.js';
 import { pristine } from './form-validation.js';
+// import { showMessage } from './messages.js';
 
 const FULL_SCALE_VALUE = 100;
 
+const errorMessage = document.querySelector('.error');
 const uploadFile = document.querySelector('#upload-file');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const imgUploadCancel = document.querySelector('.img-upload__cancel');
@@ -20,7 +22,7 @@ const onCloseImgEdit = () => {
 };
 
 const onCloseImgEditEscape = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (isEscapeKey(evt) && !errorMessage) {
     closeImgEdit();
   }
 };

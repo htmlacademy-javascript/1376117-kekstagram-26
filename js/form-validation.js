@@ -1,6 +1,8 @@
-import { showMessage } from './messages.js';
+// import { showMessage } from './messages.js';
 // import {showAlert} from './util.js';
+import { sendData } from './api.js';
 
+const submitButton = document.querySelector('.img-upload__submit');
 const form = document.querySelector('.img-upload__form');
 const textDescription = document.querySelector('.text__description');
 const textHashtags = document.querySelector('.text__hashtags');
@@ -46,31 +48,27 @@ pristine.addValidator(textHashtags, validateHashtagsCount, 'Не больше 5 
 pristine.addValidator(textHashtags, testUniqueHashtags, 'Oдин и тот же хэш-тег не может быть использован дважды');
 pristine.addValidator(textHashtags, validateHashTagsFormat, 'Xэш-тег начинается с символа # (решётка).Cтрока после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы и т.д. Длина хэш-тега от 2 до 20');
 
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+};
+
 const setPictureFormSubmit = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
     if (isValid) {
-      // form.submit();
-      const formData = new FormData(evt.target);
-
-      fetch('https://26.javascript.pages.academy/kekstagram',
-        {
-          method: 'POST',
-          body: formData,
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          unblockSubmitButton();
         },
-      )
-        .then((response) => {
-          if (response.ok) {
-            onSuccess();
-            showMessage('success');
-          } else {
-            showMessage('error');
-          }
-        })
-        .catch(() => {
-          showMessage('error');
-        });
+        new FormData(evt.target),
+      );
     }
   });
 };
