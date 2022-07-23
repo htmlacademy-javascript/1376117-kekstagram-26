@@ -105,6 +105,8 @@ const setupEffects = () => {
 const destroyEffects = () => {
   sliderElement.noUiSlider.destroy();
   effectsList.removeEventListener('change', onFilterChange);
+  imgUploadPreview.style.filter = NO_EFFECT;
+
 };
 
 export {setupEffects, destroyEffects};

@@ -22,6 +22,7 @@ const showMessage = (typeMessage, message, textButton) => {
   function onCloseMessageWindowEsc (evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
+      evt.stopPropagation();
       onCloseMessageWindow();
     }
   }
