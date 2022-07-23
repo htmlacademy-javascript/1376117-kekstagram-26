@@ -1,5 +1,5 @@
 import { showMessage } from './messages.js';
-import {showAlert} from './util.js';
+// import {showAlert} from './util.js';
 
 const form = document.querySelector('.img-upload__form');
 const textDescription = document.querySelector('.text__description');
