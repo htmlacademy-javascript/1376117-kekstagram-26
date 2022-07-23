@@ -1,10 +1,16 @@
+import { showMessage } from './messages.js';
+import { sendData } from './api.js';
+
+const MAX_DESCRIPTION_STRING = 140;
+const MAX_COUNT_HASHTAGS = 5;
+const SUCCESS_MESSAGE= 'success';
+const ERROR_MESSAGE = 'error';
+
+const submitButton = document.querySelector('.img-upload__submit');
 const form = document.querySelector('.img-upload__form');
 const textDescription = document.querySelector('.text__description');
 const textHashtags = document.querySelector('.text__hashtags');
 const regExp = /^#[A-Za-zА-Яа-яЁё0-9]{1,19}$/;
-
-const MAX_DESCRIPTION_STRING = 140;
-const MAX_COUNT_HASHTAGS = 5;
 
 const validateCommentLength = (value) => value.length <= MAX_DESCRIPTION_STRING;
 
@@ -43,11 +49,35 @@ pristine.addValidator(textHashtags, validateHashtagsCount, 'Не больше 5 
 pristine.addValidator(textHashtags, testUniqueHashtags, 'Oдин и тот же хэш-тег не может быть использован дважды');
 pristine.addValidator(textHashtags, validateHashTagsFormat, 'Xэш-тег начинается с символа # (решётка).Cтрока после решётки должна состоять из букв и чисел и не может содержать пробелы, спецсимволы и т.д. Длина хэш-тега от 2 до 20');
 
-form.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  if (pristine.validate()) {
-    form.submit();
-  }
-});
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+};
 
-export {pristine};
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+};
+
+const setPictureFormSubmit = (onSuccess) => {
+  form.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+    if (isValid) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          onSuccess();
+          showMessage(SUCCESS_MESSAGE);
+          unblockSubmitButton();
+          form.reset();
+        },
+        () => {
+          showMessage(ERROR_MESSAGE);
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+};
+
+export {pristine, setPictureFormSubmit};

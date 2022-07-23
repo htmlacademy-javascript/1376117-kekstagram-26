@@ -61,4 +61,4 @@ const openImgEdit = () => {
   });
 };
 
-export{openImgEdit};
+export{openImgEdit, closeImgEdit};
