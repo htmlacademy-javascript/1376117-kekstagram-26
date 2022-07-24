@@ -101,6 +101,6 @@ const getRandomUniqueElements = (array) => {
     newArray.splice(randomId, 1);
   }
   return elements;
-}
+};
 
 export {makeElement, isEscapeKey, showAlert, debounce, getRandomUniqueElements};
