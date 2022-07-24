@@ -8,6 +8,7 @@ import {setPictureFormSubmit} from './form-validation.js';
 import './messages.js';
 import {getData} from './api.js';
 import { getFilteredPicture } from './filter-image.js';
+import './photo.js';
 
 openImgEdit();
 
