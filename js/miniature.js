@@ -1,11 +1,8 @@
-// import {makePhotos} from './data.js';
 import {openBigPhoto} from './full-size-img.js';
 
 const pictureItem = document.body.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-
-// const similarPictures = makePhotos(25);
-// console.log(similarPictures);
+const imgFiltersContainer = document.querySelector('.img-filters');
 
 const renderSimilarPhoto = (similarPictures) => {
   const similarListFragment = document.createDocumentFragment();
@@ -26,6 +23,7 @@ const renderSimilarPhoto = (similarPictures) => {
   });
 
   pictureItem.appendChild(similarListFragment);
+  imgFiltersContainer.classList.remove('img-filters--inactive');
 };
 
 export {renderSimilarPhoto};
