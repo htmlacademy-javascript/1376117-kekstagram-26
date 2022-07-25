@@ -43,21 +43,29 @@ const renderPicturesFilter = (photo) => {
   renderSimilarPhoto(photo);
 };
 
+const changeActiveButton = (target) => {
+  if (target.matches('.img-filters__button')) {
+    removeActiveClass();
+    target.classList.add('img-filters__button--active');
+  }
+};
+
 const getFilteredPicture = (pictures) => {
-  const onFilterClick = (evt) => {
-    if (evt.target.matches('.img-filters__button')) {
-      removeActiveClass();
-      evt.target.classList.add('img-filters__button--active');
-    }
-    if (evt.target === defaultButton) {
+  const filterPictures = debounce((target) => {
+    if (target === defaultButton) {
       renderPicturesFilter(createDefaultFilter(pictures));
     }
-    if (evt.target === randomButton) {
+    if (target === randomButton) {
       renderPicturesFilter(createRandomFilter(pictures));
     }
-    if (evt.target === discussedButton) {
+    if (target === discussedButton) {
       renderPicturesFilter(createDiscussedFilter(pictures));
     }
+  });
+
+  const onFilterClick = (evt) => {
+    changeActiveButton(evt.target);
+    filterPictures(evt.target);
   };
 
   imgFiltersForm.addEventListener('click', debounce(onFilterClick));
