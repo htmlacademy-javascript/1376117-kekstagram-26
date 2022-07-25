@@ -7,11 +7,13 @@ import { openImgEdit, closeImgEdit } from './edit-form.js';
 import {setPictureFormSubmit} from './form-validation.js';
 import './messages.js';
 import {getData} from './api.js';
+import { getFilteredPicture } from './filter-image.js';
 
 openImgEdit();
 
 getData ((photo) => {
   renderSimilarPhoto(photo);
+  getFilteredPicture(photo);
 });
 
 setPictureFormSubmit(closeImgEdit);
